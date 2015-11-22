@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   post "/update_my_like/:id", :controller => "my_likes", :action => "update"
 
   # DELETE
-  get "/delete_my_like/:id", :controller => "likes", :action => "destroy"
+  get "/delete_my_like/:id", :controller => "my_likes", :action => "destroy"
   #------------------------------
 
 
