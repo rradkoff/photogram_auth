@@ -18,7 +18,7 @@
           <h3 class="panel-title">
            <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
             <small>
-              <%=time_ago_in_words(Time.now)%>
+              <%=time_ago_in_words(photo.created_at)%>
             </small>
            </h3>
         </div>
@@ -36,9 +36,15 @@
               <h6 class="media-heading">
                 <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
                 <small>
-                  <%=time_ago_in_words(Time.now)%>
+                  <%=time_ago_in_words(photo.created_at)%>
                 </small>
               </h6>
+              <% usernames = [] %>
+              <% photo.likes.each do |like| %>
+              <% usernames.push(like.user.username) %>
+              <% end %>
+              <%= usernames.to_sentence %>
+
               <%= photo.comments.pluck(:body).to_sentence %>
             </div>
           </li>

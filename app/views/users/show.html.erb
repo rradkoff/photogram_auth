@@ -1,15 +1,39 @@
-<div class="page-header">
 
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped table-hover">
-      <tr>
-      <% if @user.id == @photo.user_id %>
-      <dt>Image</dt>
-      <dd><%= @photo.image %></dd>
-      </tr>
-      <% end %>
-    </table>
+<div class="container">
+
+
+    <div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h3>
+        <%= @users.username %>
+      </h3>
+    </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <a href="/photos/new" class="btn btn-default btn-block">
+      <i class="fa fa-plus"></i>
+    </a>
+
+    <hr>
+  </div>
 </div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a href="/users/<%= @users.id %>"><%= @users.username %></a>
+          <small>
+            <%=time_ago_in_words(Time.now)%>
+          </small>
+        </h3>
+      </div>
+
+
+
+
