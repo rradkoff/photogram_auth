@@ -18,6 +18,26 @@
           <img src="<%= my_like.photo.image %>" class="img-responsive">
         </a>
 
+        <p>
+            <form action="/create_like" method="post">
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+              <input type="hidden" name="photo_id" value="<%= my_like.photo.id %>">
+
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+              <button class="btn btn-link">
+                <i class="fa fa-heart-o"></i>
+              </button>
+              <% usernames = [] %>
+              <% my_like.photo.likes.each do |like| %>
+              <% usernames.push(like.user.username) %>
+              <% end %>
+              <%= usernames.to_sentence %>
+            </form>
+        </p>
+
         <ul class="media-list">
 
           <li class="media">
@@ -36,11 +56,11 @@
             <div class="media-body">
               <form action="/create_comment" method="post">
                 <!-- Hidden input for authenticity token to protect from forgery -->
-                <input name="authenticity_token" type="hidden" value="UkUd7IEGc191hJOBhRdUf/Kfpwm9HrqetFqZ30hLk8VZLcUYgXRqqyg4idcN5IzXD4SGSnW3hJuM6i2DVXlTUQ==">
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
                 <input type="hidden" name="photo_id" value="<%= my_like.photo.id %>">
 
-                <input type="hidden" name="user_id" value="<%= my_like.user_id %>">
+                <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
                 <!-- Label and input for body -->
                 <div class="form-group">
