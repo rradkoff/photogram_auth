@@ -22,6 +22,7 @@
   </div>
 </div>
 
+<% @users.photos.each do |photo| %>
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <div class="panel panel-default">
@@ -29,11 +30,55 @@
         <h3 class="panel-title">
           <a href="/users/<%= @users.id %>"><%= @users.username %></a>
           <small>
-            <%=time_ago_in_words(Time.now)%>
+            <%=time_ago_in_words(photo.created_at)%>
           </small>
         </h3>
       </div>
 
+<div class="panel-body">
+        <a href="/photos/<%= photo.id %>">
+          <img src="<%= photo.image %>" class="img-responsive">
+        </a>
 
+<ul class="media-list">
 
+          <li class="media">
+            <div class="media-body">
+              <h6 class="media-heading">
+                <a href="/users/<%= @users.id %>"><%= @users.username %></a>
+                <small>
+                  <%=time_ago_in_words(photo.created_at)%>
+                </small>
+              </h6>
+              <%= photo.comments.pluck(:body).to_sentence %>
+            </div>
+          </li>
+
+          <li class="media">
+            <div class="media-body">
+              <form action="/create_comment" method="post">
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="HOQwTQHVqdJgEZ6qkHIry92MzXcbDl6LEDYpuapgDeH0rZuBTk4UXHS/9iyr9aBEmDgdmWVmCZ5L55L2+6jT/w==">
+
+                <input type="hidden" name="photo_id" value="<%= photo.id %>">
+
+                <input type="hidden" name="user_id" value="<%= photo.user.id %>">
+
+                <!-- Label and input for body -->
+                <div class="form-group">
+                  <label for="body" class="sr-only">
+                    Body
+                  </label>
+
+                  <input type="text" id="body" name="body" placeholder="Add a comment..." class="form-control" required>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
 
